@@ -1,0 +1,20 @@
+{
+  "name": "sdfhelper",
+  "version": "0.0.1",
+  "description": "wut",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "Me?",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "electron-prebuilt": "^1.4.13",
+    "request": "^2.87.0"
+  },
+  "devDependencies": {
+    "electron": "^2.0.5"
+  }
+}
