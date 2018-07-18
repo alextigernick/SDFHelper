@@ -23,8 +23,22 @@ function parseElement(tag){
     ret.Description = ret.Description.substring(ret.Description.indexOf(">")+1,ret.Description.substring(ret.Description.indexOf(">")).indexOf("<")+ret.Description.indexOf(">"))
     return ret;
 }
-function parseAttribute(tag){
+function parseAttribute(i,tag){
+    var data = baseList.find(tag).html();
+    ret = {};
+    ret.TagName = data.substring(data.indexOf("<h5>") + 4, data.indexOf("<small>"));
+    ret.Required = data.substring(data.indexOf("Required:"));
+    ret.Required = ret.Required.substring(ret.Required.indexOf(">")+1,ret.Required.substring(ret.Required.indexOf(">")).indexOf("<")+ret.Required.indexOf(">"))
+    
+    ret.Type = data.substring(data.indexOf("Type:"));
+    ret.Type = ret.Type.substring(ret.Type.indexOf(">")+1,ret.Type.substring(ret.Type.indexOf(">")).indexOf("<")+ret.Type.indexOf(">"))
 
+    ret.Default = data.substring(data.indexOf("Default:"));
+    ret.Default = ret.Default.substring(ret.Default.indexOf(">")+1,ret.Default.substring(ret.Default.indexOf(">")).indexOf("<")+ret.Default.indexOf(">"))
+
+    ret.Description = data.substring(data.indexOf("Description:"));
+    ret.Description = ret.Description.substring(ret.Description.indexOf(">")+1,ret.Description.substring(ret.Description.indexOf(">")).indexOf("<")+ret.Description.indexOf(">"))
+    return ret;
 }
 let baseList;
 function responded(error,response,body){
@@ -55,11 +69,14 @@ function responded(error,response,body){
         ret.Attributes = next.children("span[class=tree-attribute]");
         ret.Subs       = next.children("span[class=tree-element]").map(peruse).get();
         ret.Element = elem;
-        return ret;
+        ret.Parsed = parseElement(ret);
+        ret.ParsedAttributes = ret.Attributes.map(parseAttribute).get();
+        var t = {Parsed:ret.Parsed,ParsedAttributes:ret.ParsedAttributes,Subs:ret.Subs}
+        return t;
     }
     tree.Notes = baseList.children('p').html();//
     var base = baseList.children('li').children('a').children("span[class=tree-element]");
     var w = base.map(peruse).get();
-
+    
 
 }
