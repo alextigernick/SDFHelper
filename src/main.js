@@ -1,8 +1,7 @@
 const {app, BrowserWindow} = require('electron');
 const url = require('url');
 const path = require('path');
-const scraper = require('./scrape');
-scraper.scrape();
+
 let win  
 
 function createWindow() { 

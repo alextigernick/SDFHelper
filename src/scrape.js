@@ -1,10 +1,12 @@
 const request = require('request');
 const cheerio = require('cheerio')
+const fs      = require('fs');
 module.exports = {
     scrape: scrape
  };
+ //you'll never need this file unless theres a new sdf version.
 function scrape() {
-    request("http://sdformat.org/spec?ver=1.6&elem=world",responded);
+    request("http://sdformat.org/spec?ver=1.6&elem=world",buildRequests);
 }
 function parseElement(tag){
     var data = tag.Element.html();
@@ -41,8 +43,11 @@ function parseAttribute(i,tag){
     return ret;
 }
 let baseList;
-function responded(error,response,body){
+let fullArray = {};
+let requestList = [];
+function buildRequests(err,response,body){
     var doc = cheerio.load(body);
+    fullArray = {};
     var tabs = [];
     var vers = [];
     var temp = doc('ul[id=tabs]').children("li").children('a').toArray();
@@ -50,15 +55,32 @@ function responded(error,response,body){
         tabs.push({
             name:tab.firstChild.data,
             link:tab.attribs['href']
-        })
+        });
     });
     temp = doc('select[id=version]').children("option").toArray();
     temp.forEach(function(ver){
         vers.push({
             name:ver.firstChild.data,
             version:ver.attribs['value']
-        })
+        });
+        fullArray[ver.attribs['value']] = [];
     });
+    for(tab in tabs){
+        for(version in vers){
+            ver = tabs[tab].link.substring(tabs[tab].link.indexOf("ver=")+4,tabs[tab].link.substring(tabs[tab].link.indexOf("ver=")).indexOf("&")+tabs[tab].link.indexOf("ver="));
+            requestList.push(tabs[tab].link.replace(ver,vers[version].version));
+        }
+    }
+    request("http://sdformat.org/".concat(requestList.pop()),buildJson);
+}
+function buildJson(error,response,body){
+    var ver = response.request.path;
+    ver = ver.substring(ver.indexOf("ver=")+4,ver.substring(ver.indexOf("ver=")).indexOf("&")+ver.indexOf("ver="));
+    if (typeof(fullArray[ver]) == "undefined"){
+        fullArray[ver] = [];
+    }
+    var doc = cheerio.load(body);
+    console.log("parsing: "+response.request.path)
     var tree = {};
     baseList = doc('div[class="tree well"]').children('ul');
     var peruse = function(i,e){
@@ -71,12 +93,29 @@ function responded(error,response,body){
         ret.Element = elem;
         ret.Parsed = parseElement(ret);
         ret.ParsedAttributes = ret.Attributes.map(parseAttribute).get();
-        var t = {Parsed:ret.Parsed,ParsedAttributes:ret.ParsedAttributes,Subs:ret.Subs}
+        var t = {Parsed:ret.Parsed,ParsedAttributes:ret.ParsedAttributes,Subs:ret.Subs,Elsewhere:ret.Elsewhere}
         return t;
     }
     tree.Notes = baseList.children('p').html();//
     var base = baseList.children('li').children('a').children("span[class=tree-element]");
     var w = base.map(peruse).get();
+    fullArray[ver].push(w[0]);
+
+    if(requestList.length != 0){
+        request("http://sdformat.org/".concat(requestList.pop()),buildJson);
+    }
+    else{
+        done();
+    }
+}
+function done(){
+    console.log(fullArray);
+    fs.writeFile("output.json", JSON.stringify(fullArray), function(err) {
+        if(err) {
+            return console.log(err);
+        }
     
+        console.log("The file was saved!");
+    });
 
 }
