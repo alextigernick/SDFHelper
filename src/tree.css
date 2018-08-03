@@ -1,16 +1,110 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-body {background-color: powderblue;}
-h1   {color: blue;}
-p    {color: red;}
-</style>
-</head>
-<body>
+body {background-color: rgb(10, 85, 0);}
+        
+.element, .attribute{
+    margin-left: 5px;
+    padding-bottom: 0px;
+    padding-left: 15px;
+}
+.cont {
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+.attribute > .cont {
+    background-color: #77dd77;
+}
+.element > .cont {
+    background-color: #fdfd96;
+}
 
-<h1>This is a heading</h1>
-<p>This is a paragraph.</p>
+ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    position: relative;
+}
+li {
+    list-style-type: none;
+    margin-left: 5px;
+}
+li {
+    padding-left: 5px;
+    position: relative;
+}
+li::before {
+    content:'';
+    position: absolute;
+    left: 9px;
+    bottom: 50%;
+    width: 5px;
+    height: calc(50% + 10px);
+    border: 2px solid gray;
+    border-top: 0 none transparent;
+    border-right: 0 none transparent;
+    z-index: -1;
+}
+li:not(:last-child)::after {
+    content:'';
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    height: 50%;
+    width: 5px;
+    border: 2px solid gray;
+    border-bottom: 0 none transparent;
+    border-top: 0 none transparent;
+    border-right: 0 none transparent;
+    z-index: -1;
+}
+.cont > p.title::before {
+    font-weight: normal;
+    content: "Name: <";
+}
+.cont > p.title::after {
+    font-weight: normal;
+    content: ">";
+}
+.cont > p.title{
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.3);
+    display: inline-block;
+    padding: 10px;
+    margin: 0px;
+    margin-top: 0px;
+    margin-left: -5px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.7);
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+}
+ul.elementlist::before{
+    content: "";
+}
+.listopen{
+    z-index: 1;
+    padding: 0 0 0 0;
+    margin-left: 4px;
+}
 
-</body>
-</html>
+.arrow {
+    border: solid black;
+    border-width: 0 5px 5px 0;
+    display: inline-block;
+    padding: 5px;
+    margin-top: 5px;
+    transform: rotate(45deg);
+
+}
+.arrow:hover {
+    border: solid orange;
+    border-width: 0 5px 5px 0;
+    display: inline-block;
+    padding: 5px;
+    margin-top: 5px;
+    transform: rotate(45deg);   
+}
