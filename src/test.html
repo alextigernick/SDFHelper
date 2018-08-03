@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        body {background-color: rgb(10, 85, 0);}
+        .element, .attribute{
+            
+            margin-left: 5px;
+            padding-bottom: 5px;
+            padding-left: 10px;
+            margin-bottom: 5px;
+
+        }
+        .cont {
+            border-color: black;
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 10px;
+            padding-left: 5px;
+        }
+        .attribute > .cont {
+            background-color: #77dd77;
+        }
+        .element > .cont {
+            background-color: #fdfd96;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            position: relative;
+        }
+        li {
+            list-style-type: none;
+            margin-left: 5px;
+        }
+        li {
+            padding-left: 5px;
+            position: relative;
+        }
+        li::before {
+            content:'';
+            position: absolute;
+            left: 4px;
+            bottom: 50%;
+            width: 5px;
+            height: calc(50% + 10px);
+            border: 2px solid gray;
+            border-top: 0 none transparent;
+            border-right: 0 none transparent;
+            z-index: -1;
+        }
+        li:not(:last-child)::after {
+            content:'';
+            position: absolute;
+            left: 4px;
+            top: 50%;
+            height: 50%;
+            width: 5px;
+            border: 2px solid gray;
+            border-bottom: 0 none transparent;
+            border-top: 0 none transparent;
+            border-right: 0 none transparent;
+            z-index: -1;
+        }
+        .cont > p.title::before {
+            font-weight: normal;
+            content: "Name: <";
+        }
+        .cont > p.title::after {
+            font-weight: normal;
+            content: ">";
+        }
+        .cont > p.title{
+            font-weight: bold;
+        }
+        ul.elementlist::before{
+            content: "";
+        }
+        .listopen{
+            z-index: 1;
+            padding: 0 0 0 0;
+            margin-left: 4px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="element">
+            <div class="cont">
+                <p class="title">sdf</p>
+            </div>
+            <ul class="elementlist">
+                <button class="listopen">+</button>
+                <li class="attribute">
+                    <div class="cont">
+                        <p class="title">hi</p>
+                    </div>
+                </li>
+                <li class="element">
+                    <div class="cont">
+                        <p class="title">hi2</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

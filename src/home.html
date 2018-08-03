@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset = "UTF-8">
+      <script type="text/javascript">
+        const {ipcRenderer} = require('electron');
+        function openFile () {
+            ipcRenderer.send('fileOpen', () => { 
+                console.log("Open file event sent."); 
+            });
+            return false;
+        }
+        // Wait for the page to load first
+        window.onload = function() {
+
+          //Get a reference to the link on the page
+          // with an id of "mylink"
+          var openlink = document.getElementById("openlink");
+          openlink.onclick = openFile;
+        }
+    </script>
+   </head>
+   
+   <body>
+        <a id="openlink" href="">Open an existing sdf file</a>   
+    
+   </body>
+</html>

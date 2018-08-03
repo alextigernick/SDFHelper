@@ -4,12 +4,15 @@
    <head>
       <meta charset = "UTF-8">
       <title>Hello World!</title>
+      <link rel="stylesheet" href="../node_modules/electron-tabs/electron-tabs.css">
    </head>
    
    <body>
-      <h1>Hello World!</h1>
-      We are using node <script>document.write(process.versions.node)</script>,
-      Chrome <script>document.write(process.versions.chrome)</script>,
-      and Electron <script>document.write(process.versions.electron)</script>.
+    <div class="etabs-tabgroup">
+            <div class="etabs-tabs"></div>
+            <div class="etabs-buttons"></div>
+    </div>
+    <div class="etabs-views"></div>
+    <script src = "./view.js" ></script>
    </body>
 </html>
