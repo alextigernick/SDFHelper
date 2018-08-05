@@ -1,18 +1,18 @@
-
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset = "UTF-8">
-      <title>Hello World!</title>
-      <link rel="stylesheet" href="../node_modules/electron-tabs/electron-tabs.css">
-   </head>
-   
-   <body>
-    <div class="etabs-tabgroup">
-            <div class="etabs-tabs"></div>
-            <div class="etabs-buttons"></div>
-    </div>
-    <div class="etabs-views"></div>
-    <script src = "./view.js" ></script>
-   </body>
+    <head>
+        <link rel="stylesheet" href="tree.css">
+        <link rel="stylesheet" href="tabs.css">
+        <title id="title">sdfHelper</title>
+        <script src = "./view.js" ></script>
+
+    </head>
+    <body onload="fileNew()">
+        <div class="hidden">🗑➤🞧✖</div>    
+        <ul class="tabs" id="tabList" ondblclick="fileNew()">
+        </ul>
+        <div id="viewList">
+        </div>
+    </body>
+    
 </html>

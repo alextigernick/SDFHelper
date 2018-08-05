@@ -11,6 +11,7 @@ const menuTemplate = [
         {
             label: "New",
             accelerator: 'Control+N',
+            click: fileNew
         },
         {
             label: "Open",
@@ -20,6 +21,12 @@ const menuTemplate = [
         {
             label: "Save",
             accelerator: 'Control+S',
+            click: fileSave
+        },
+        {
+            label: "Close File",
+            accelerator: 'Control+W',
+            click: fileClose
         }]
     },
 
@@ -27,10 +34,14 @@ const menuTemplate = [
         label: 'Edit',
         submenu: [
         {
-            role: 'undo'
+            label: "Undo",
+            accelerator: "Control+Z",
+            click: undo
         },
         {
-            role: 'redo'
+            label: "Undo",
+            accelerator: "Control+Shift+Z",
+            click: redo
         },
         {
             type: 'separator'
@@ -82,10 +93,16 @@ const menuTemplate = [
             role: 'minimize'
         },
         {
-            role: 'close'
+            label: "Next Tab",
+            accelerator: "Control+Tab",
+            click: nextTab
+        },
+        {
+            label: "Previous Tab",
+            accelerator: "Control+Shift+Tab",
+            click: prevTab
         }]
     },
-
     {
         role: 'help',
         submenu: [
@@ -142,8 +159,32 @@ function fileOpen() {
         } 
     });
 }
+function fileNew(){
+    win.send("new");
+}
+function fileSave(){
+    win.send("save");
+}
+function fileClose(){
+    win.send("fileClose");
+}
+
+function nextTab(){
+    win.send("nextTab");
+}
+function prevTab(){
+    win.send("prevTab");
+}
+
 function getRules(event,path) {
     event.sender.send('getRulesData', JSON.parse(fs.readFileSync('ruleset.json')))
+}
+
+function undo(){
+    win.send("undo");
+}
+function redo(){
+    win.send("redo");
 }
 
 ipcMain.on('getRules', getRules)  

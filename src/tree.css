@@ -1,10 +1,4 @@
-body {background-color: rgb(10, 85, 0);}
-        
-.element, .attribute{
-    margin-left: 5px;
-    padding-bottom: 0px;
-    padding-left: 15px;
-}
+body {background-color: #0D0630;}
 .cont {
     border-color: black;
     border-style: solid;
@@ -12,46 +6,50 @@ body {background-color: rgb(10, 85, 0);}
     border-radius: 10px;
     padding-left: 5px;
     margin-bottom: 5px;
-}
-.attribute > .cont {
-    background-color: #77dd77;
+    
 }
 .element > .cont {
-    background-color: #fdfd96;
+    background-color: #384E77;
 }
 
-ul {
+ul.elementlist::before{
+    content: "";
+}
+ul.elementlist {
     padding: 0;
     margin: 0;
     list-style-type: none;
     position: relative;
+    transition: 0.1s;
 }
-li {
+
+li.element {
     list-style-type: none;
-    margin-left: 5px;
-}
-li {
     padding-left: 5px;
     position: relative;
+    margin-left: 5px;
+    padding-bottom: 0px;
+    padding-left: 15px;
 }
-li::before {
+
+li.element > .cont::before {
     content:'';
     position: absolute;
     left: 9px;
-    bottom: 50%;
+    bottom: calc(100% - 22.5px);
     width: 5px;
-    height: calc(50% + 10px);
+    height: 30px;
     border: 2px solid gray;
     border-top: 0 none transparent;
     border-right: 0 none transparent;
     z-index: -1;
 }
-li:not(:last-child)::after {
+li.element:not(:last-child)::after {
     content:'';
     position: absolute;
     left: 9px;
-    top: 50%;
-    height: 50%;
+    top: 0;
+    height: 100%;
     width: 5px;
     border: 2px solid gray;
     border-bottom: 0 none transparent;
@@ -61,7 +59,7 @@ li:not(:last-child)::after {
 }
 .cont > p.title::before {
     font-weight: normal;
-    content: "Name: <";
+    content: "<";
 }
 .cont > p.title::after {
     font-weight: normal;
@@ -82,9 +80,7 @@ li:not(:last-child)::after {
     border-right: 1px solid #999;
     border-bottom: 1px solid #999;
 }
-ul.elementlist::before{
-    content: "";
-}
+
 .listopen{
     z-index: 1;
     padding: 0 0 0 0;
@@ -92,19 +88,37 @@ ul.elementlist::before{
 }
 
 .arrow {
-    border: solid black;
-    border-width: 0 5px 5px 0;
     display: inline-block;
-    padding: 5px;
-    margin-top: 5px;
-    transform: rotate(45deg);
-
+    transform: rotate(90deg);
+    transition: 0.1s;
+    font-size: 25px;
+    user-select: none;
+    color: black;
+    margin-left: -2px;
 }
 .arrow:hover {
-    border: solid orange;
-    border-width: 0 5px 5px 0;
-    display: inline-block;
-    padding: 5px;
-    margin-top: 5px;
-    transform: rotate(45deg);   
+    color: orange;  
+}
+
+.add{
+    font-size: 25px;
+    user-select: none;
+    color: black;
+}
+.add:hover {
+    color: greenyellow;  
+}
+
+.delete{
+    font-size: 25px;
+    user-select: none;
+    color: black;
+    
+}
+.delete:hover {
+    color: red;  
+}
+*{
+    user-select: none;
+    cursor: default;
 }

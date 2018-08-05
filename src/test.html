@@ -3,17 +3,26 @@
     <head>
         <link rel="stylesheet" href="tree.css">
         <script>
+            undoQueue = [];
             function openlist(obj){
                 
                 var el = obj.parentElement.parentElement.getElementsByClassName("elementlist")[0];
                 if (el.style.display === "none") {
                     el.style.display = "block";
-                    obj.style.transform = "rotate(45deg)"
+                    obj.style.transform = "rotate(90deg)"
                 } else {
                     el.style.display = "none";
-                    obj.style.transform = "rotate(-45deg)"
+                    obj.style.transform = "rotate(0deg)"
                 }
                 
+            }
+            function remove(obj){
+                undoQueue.push({
+                    type:"delete",
+                    previous:obj.parentElement.parentElement.previousSibling,
+                    element: obj.parentElement.parentElement
+                })
+                obj.parentElement.parentElement.remove()
             }
         </script>
     </head>
@@ -22,19 +31,35 @@
             
             <div class="cont">
                 <p class="title">sdf</p>
+                <element class="delete" onclick="remove(this)">🗑</element>
                 <br>
-                <element class="arrow" onclick="openlist(this)"></element>
+                <element class="arrow" onclick="openlist(this)">➤</element>
+                <element class="add">🞧</element>
             </div>
             <ul class="elementlist">
-                <li class="attribute">
-                    <div class="cont">
-                        <p class="title">hi</p>
-                    </div>
-                </li>
                 <li class="element">
                     <div class="cont">
                         <p class="title">hi2</p>
+                        <element class="delete" onclick="remove(this)">🗑</element>
+                        <br>
+                        <element class="arrow" onclick="openlist(this)">➤</element>
+                        <element class="add">🞧</element>
                     </div>
+                    <ul class="elementlist">
+                        <li class="element">
+                            <div class="cont">
+                                <p class="title">hi2</p>
+                                <element class="delete" onclick="remove(this)">🗑</element>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="element">
+                        <div class="cont">
+                            <p class="title">hi2</p>
+                            <element class="delete" onclick="remove(this)">🗑</element>
+                            <br>
+                        </div>
                 </li>
             </ul>
         </div>

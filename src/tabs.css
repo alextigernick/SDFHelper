@@ -1,0 +1,44 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+.hidden{
+    display: none;
+}
+ul.tabs{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #18314F;
+}
+ul.tabs > li{
+    display:inline;
+    font-weight: bold;
+    background-color: #384E77;
+    color: #384E77;
+    display: inline-block;
+    padding: 5px;
+    padding-left: 25px;
+    
+    margin: 0px;
+    margin-right: 5px;
+}
+ul.tabs > li:hover > .closeTab{
+    opacity: 1.0;
+}
+ul.tabs > li > p{
+    display:inline;
+    padding: 0;
+    color: lightgrey;
+    margin: 0;
+}
+.closeTab {
+    padding-left: 15px;
+    opacity: 0.0;
+    color: lightgrey;
+    display:inline;
+}
+.closeTab:hover {
+    color: red;
+}
